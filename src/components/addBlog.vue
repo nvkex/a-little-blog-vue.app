@@ -1,19 +1,29 @@
 <template>
   <div id = "addBlogDiv">
 
-      <h2>Add a new blog.</h2>
-      <form>
-          <label>Blog Title</label>
-          <input type = "text" required v-model = "blog.title">
-          <label>Blog Content</label>
-          <textarea v-model = "blog.content"></textarea>
-      </form>    
-
-      <div id = "preview">
-          <h3>Blog Preview</h3>
-          <p>Blog Title: {{ blog.title }}</p>
-          <p>Blog Content: {{ blog.content }}</p>
-      </div>
+        <h1 align = "center" class = "display-4">Add a new blog</h1>
+        <form v-show = "!submitted">
+            <br>
+            <input type = "text" required v-model = "blog.title" placeholder = "Blog Title">
+            <br>
+            <textarea v-model = "blog.content" placeholder = "Blog Content"></textarea>
+            <label>Author: </label>
+            <select v-model = "blog.author">
+                <option v-for = "author in authors" v-bind:key = "author">{{ author }}</option>
+            </select>
+            <br><br>
+            <button v-on:click.prevent = "post" class = "btn btn-outline-success">Add Blog</button>
+        </form>    
+        <div v-show = "submitted">
+            <h3 align = "center">BLOG POSTED!!</h3>
+        </div>
+        <div id = "preview">
+            <h3>Blog Preview</h3>
+            <p>Blog Title: {{ blog.title }}</p>
+            <p>Blog Content:</p>
+            <p>{{ blog.content }}</p>
+            <p>Author: {{ blog.author }}</p>
+        </div>
   </div>
 </template>
 
@@ -22,10 +32,25 @@ export default {
   data () {
     return {
         blog:{
-        title:'',
-        content:''
-        }
+            title:'',
+            content:'',
+            author:''
+        },
+        authors:['NVKEX','NukeWorm','lolol'],
+        submitted: false
     }
+  },
+  methods:{
+      post:function(){
+          this.$http.post('http://jsonplaceholder.typicode.com/posts',{
+              title: this.blog.title,
+              body: this.blog.content,
+              userId: 1
+          }).then(function(data){
+              console.log(data);
+          });
+          this.submitted = !this.submitted;
+      }
   }
 }
 </script>
@@ -45,10 +70,22 @@ export default {
         margin: 20px 0 10px;
     }
 
+    input[type = "text"], select{
+        background: #1d272f;
+        outline:none;
+        transition: 0.8s ease;
+        border-radius:10px;
+        color: #bfbfbf;
+        border:0;
+    }
+
     input[type = "text"], textarea{
         display:block;
         width: 100%;
         padding: 8px;
+        border:0;        
+        background: #1d272f;
+        color: #bfbfbf;
     }
 
     #preview{
