@@ -1,18 +1,21 @@
 <template>
   <div>
-    <show-blog></show-blog>
+    <app-header></app-header>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
 import addBlog from './components/addBlog.vue'
 import showBlogs from './components/showBlogs.vue'
+import headerFile from './components/header.vue'
 
 export default {
   components:{
     'add-blog':addBlog,
-    'show-blog':showBlogs
-  },
+    'show-blog':showBlogs,
+    'app-header':headerFile
+    },
 
   data () {
     return {
