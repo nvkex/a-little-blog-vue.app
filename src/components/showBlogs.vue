@@ -6,7 +6,7 @@
           <input type = "text" v-model = "searchWords" placeholder = "Search..">
       </div>
       <div v-for = "blog in filteredBlogs" v-bind:key = "blog" class = "single-blog">
-          <h2>{{ blog.title }}</h2>
+          <router-link v-bind:to = "'/blog/' + blog.id"><h2>{{ blog.title }}</h2></router-link>
           <article>{{ blog.body | snippet }}</article>
           
       </div>
@@ -62,7 +62,7 @@ export default {
         transition: 0.8s ease;
         height: 50px;
         width: 80%;
-        padding-left:14px;
+        padding-left:20px;
         border:0;
         border-radius:10px;
         background: #1d272f;
