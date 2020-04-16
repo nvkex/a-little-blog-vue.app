@@ -34,7 +34,9 @@ export default {
         blog:{
             title:'',
             content:'',
-            author:''
+            author:'',
+            timeStamp: [],
+            dateStamp: []
         },
         authors:['NVKEX','NukeWorm','lolol'],
         submitted: false
@@ -42,16 +44,24 @@ export default {
   },
   methods:{
       post:function(){
-          this.$http.post('http://jsonplaceholder.typicode.com/posts',{
-              title: this.blog.title,
-              body: this.blog.content,
-              userId: 1
-          }).then(function(data){
-              console.log(data);
-          });
-          this.submitted = !this.submitted;
+            var tempT = [];
+            var tempD = [];
+            var d = new Date();
+            tempD.push(d.getDate());
+            tempD.push(d.getMonth());
+            tempD.push(d.getFullYear());
+            this.blog.dateStamp = tempD;
+            tempT.push(d.getHours());
+            tempT.push(d.getMinutes());
+            tempT.push(d.getSeconds());
+            this.blog.timeStamp = tempT;
+            console.log(this.timeStamp);
+            this.$http.post('https://a-little-blog.firebaseio.com/posts.json',this.blog).then(function(data){
+            });
+            this.submitted = !this.submitted;
       }
-  }
+  },
+
 }
 </script>
 
@@ -65,12 +75,12 @@ export default {
         max-width: 500px;
     }
     
-    label{
+    #addBlogDiv label{
         display:block;
         margin: 20px 0 10px;
     }
 
-    input[type = "text"], select{
+    #addBlogDiv input[type = "text"], select{
         background: #1d272f;
         outline:none;
         transition: 0.8s ease;
@@ -79,7 +89,7 @@ export default {
         border:0;
     }
 
-    input[type = "text"], textarea{
+    #addBlogDiv input[type = "text"], textarea{
         display:block;
         width: 100%;
         padding: 8px;

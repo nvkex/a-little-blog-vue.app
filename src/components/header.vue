@@ -3,6 +3,8 @@
         <ul>
             <li><router-link to = "/" exact>Home</router-link></li>
             <li><router-link to = "/newblog" exact>New Blog</router-link></li>
+            <li><router-link to = "/signup" exact>Sign Up</router-link></li>
+            <li><router-link to = "/login" exact>Login</router-link></li>
         </ul>
     </nav>
 </template>

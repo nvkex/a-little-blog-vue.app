@@ -6,9 +6,16 @@
           <input type = "text" v-model = "searchWords" placeholder = "Search..">
       </div>
       <div v-for = "blog in filteredBlogs" v-bind:key = "blog" class = "single-blog">
-          <router-link v-bind:to = "'/blog/' + blog.id"><h2>{{ blog.title }}</h2></router-link>
-          <article>{{ blog.body | snippet }}</article>
-          
+            <router-link v-bind:to = "'/blog/' + blog.id"><h2>{{ blog.title }}</h2></router-link>
+            <article>{{ blog.content | snippet }}</article>
+            <br>
+            <ul class = "stamps">
+                <li><span class = "material-icons">perm_identity</span> {{ blog.author }} </li>
+                <li><span class="material-icons">date_range</span> {{ blog.dateStamp[0] }}/{{ blog.dateStamp[1] + 1 }}/{{ blog.dateStamp[2] }}</li>
+                <li><span class="material-icons">schedule</span> {{ blog.timeStamp[0] }}:{{ blog.timeStamp[1] }}:{{ blog.timeStamp[2] }}</li>
+                
+            </ul>
+            
       </div>
   </div>
 </template>
@@ -25,8 +32,15 @@ export default {
     }
   },
   created(){
-      this.$http.get('http://jsonplaceholder.typicode.com/posts').then(function(data){
-          this.blogs = data.body.slice(0,10);
+      this.$http.get('https://a-little-blog.firebaseio.com/posts.json').then(function(data){
+         return data.json();
+      }).then(function(data){
+            var tempArr = [];
+            for(let key in data){
+                data[key].id = key;
+                tempArr.push(data[key]);
+            }
+            this.blogs = tempArr;
       });
   },
 
@@ -44,6 +58,10 @@ export default {
         box-sizing: border-box;
         background:#1a1a1a;
         border-radius: 10px;
+    }
+
+    .single-blog a{
+        text-decoration: none;
     }
 
     .single-blog:hover{
@@ -73,5 +91,9 @@ export default {
         width: 100%;
         border:0;
         border-radius:40px;
+    }
+
+    .material-icons{
+        vertical-align: sub;
     }
 </style>
