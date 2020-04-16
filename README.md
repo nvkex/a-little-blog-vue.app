@@ -23,7 +23,7 @@ npm run build
 
 For detailed explanation on how things work, consult the [docs for vue-loader](http://vuejs.github.io/vue-loader).
 
-# things to be done next
+## things to be done next
 
->add a footer
+add a footer
 add a login page linked with firebase
