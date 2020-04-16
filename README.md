@@ -26,4 +26,5 @@ For detailed explanation on how things work, consult the [docs for vue-loader](h
 ## things to be done next
 
 add a footer
+
 add a login page linked with firebase
