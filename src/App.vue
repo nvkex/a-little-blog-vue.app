@@ -8,12 +8,15 @@
 <script>
 import addBlog from './components/addBlog.vue'
 import showBlogs from './components/showBlogs.vue'
+import signUpPage from './components/signUp.vue'
+import loginPage from './components/login.vue'
 import headerFile from './components/header.vue'
 
 export default {
   components:{
     'add-blog':addBlog,
     'show-blog':showBlogs,
+    'sign-up':signUpPage,
     'app-header':headerFile
     },
 
@@ -42,4 +45,16 @@ export default {
         max-width: 1100px;
         margin:0 auto ;
     }
+
+    .stamps{
+      color: grey;
+      list-style-type: none;
+      margin: 0;
+    }
+
+    .stamps li{
+        display: inline-block;
+        margin: 0 4px;
+    }
+    
 </style>
